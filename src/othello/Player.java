@@ -11,16 +11,16 @@ package othello;
  */
 public abstract class Player {
     boolean human;
-    Color player_color;
+    ChipColor player_color;
     Game game;
 
-    public Player(boolean human, Color color, Game game) {
+    public Player(boolean human, ChipColor color, Game game) {
         this.human = human;
         this.player_color = color;
         this.game = game;
     }
 
-    public Color getColor() {
+    public ChipColor getColor() {
         return this.player_color;
     }
 

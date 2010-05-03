@@ -11,27 +11,74 @@ package othello;
  */
 public class Game {
     private Board board;
+    private MyMouseHandler mh;
     private Player playerOne;
     private Player playerTwo;
     private Player activePlayer;
     private boolean playerOneIsActive; //true is player one, false is player two
-    private int playerOneScore;
-    private int playerTwoScore;
+    boolean human_one = true;
+    boolean human_two = true;
 
-    public Game(Board board, boolean human_one, boolean human_two) {
+    public Game(Board board, MyMouseHandler mh, boolean human_one, boolean human_two) {
         this.board = board;
+        this.mh = mh;
+        this.human_one = human_one;
+        this.human_two = human_two;
+
         if(human_one)
-            this.playerOne = new Human_Player(human_one, Color.WHITE, this);
+            this.playerOne = new HumanPlayer(human_one, ChipColor.WHITE, this);
         else
-            this.playerOne = new Easy_Player(human_one, Color.WHITE, this);
+            this.playerOne = new HardPlayer(human_one, ChipColor.WHITE, this);
         if(human_two)
-            this.playerTwo = new Human_Player(human_two, Color.BLACK, this);
+            this.playerTwo = new HumanPlayer(human_two, ChipColor.BLACK, this);
         else
-            this.playerTwo = new Easy_Player(human_two, Color.BLACK, this);
+            this.playerTwo = new HardPlayer(human_two, ChipColor.BLACK, this);
+    }
+
+    public void PlayGame() {
+        boolean play_new_game = true;
+        boolean continue_current_game = true;
         this.playerOneIsActive = true;
         this.activePlayer = this.playerOne;
-        this.playerOneScore = 0;
-        this.playerTwoScore = 0;
+
+        int row = 0;
+        int col = 0;
+
+        while(continue_current_game) {
+            if(board.hasMove(getActivePlayer()) == false) {
+                switchPlayer();
+
+                if(board.hasMove(getActivePlayer()) == false) {
+                    continue_current_game = false;
+                    break;
+                }
+            }
+
+            if(getActivePlayer().human) {
+                //Scanner scanner = new Scanner(System.in);
+                row = mh.getLastX();
+                col = mh.getLastY();
+            }
+
+            else {
+               row = 0;
+               col = 0;
+            }
+            if(((row >= 0 && row <= 7) && (col >= 0 && col <= 7)) &&
+                    getActivePlayer().nextMove(row, col)) {
+                //System.out.println("a;lsfj");
+                 switchPlayer();
+                 board.repaint();
+                 //System.out.println(board.toString());
+                 try {
+                        Thread.sleep(1000);
+                 }
+                 catch (InterruptedException e) {
+                        e.printStackTrace();
+                 }
+            }
+        }
+
     }
 
     public Player getPlayerOne() {
@@ -40,14 +87,6 @@ public class Game {
 
     public Player getPlayerTwo() {
         return this.playerTwo;
-    }
-
-    public int getPlayerOneScore() {
-        return this.playerOneScore;
-    }
-
-    public int getPlayerTwoScore() {
-        return this.playerTwoScore;
     }
 
     public Player getActivePlayer() {

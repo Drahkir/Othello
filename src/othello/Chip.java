@@ -10,15 +10,15 @@ package othello;
  * @author Rikh Mikac
  */
 public class Chip {
-    private Color chip_color = Color.GREEN;
+    private ChipColor chip_color = ChipColor.GREEN;
     private boolean status = false; //True for a set chip, false for blank space
 
-    public Chip(Color color, boolean status) {
+    public Chip(ChipColor color, boolean status) {
         this.chip_color = color;
         this.status = status;
     }
 
-    public Color getColor() {
+    public ChipColor getChipColor() {
         return this.chip_color;
     }
 
@@ -26,12 +26,12 @@ public class Chip {
         return this.status;
     }
 
-    public void setColor(Color color) {
+    public void setColor(ChipColor color) {
         this.chip_color = color;
         this.status = true;
     }
     public String toString() {
 
-        return "" + this.getColor();
+        return "" + this.getChipColor();
     }
 }
