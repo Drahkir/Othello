@@ -14,8 +14,6 @@ import java.awt.event.ActionListener;
  * @author Rikh Mikac
  */
 
-
-
 public class Main extends JApplet implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Necessary for abstract class
