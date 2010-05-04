@@ -220,9 +220,6 @@ public class Board extends JPanel {
 
         Chip start_chip = this.getChip(start.getCoordsRow(), start.getCoordsCol());
         ChipColor player_color = player.getColor();
-        //Coords current_coords = nextCoords(start, dir);
-        //Chip current_chip = this.getChip(current_coords.getCoordsRow(), current_coords.getCoordsCol());
-
 
         while(switch_index <= 7) {
             Coords current_coords = start;
