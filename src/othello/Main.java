@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-//Testing netbeans git update
+
 package othello;
 
+import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,39 +16,44 @@ import java.awt.event.ActionListener;
  */
 
 public class Main extends JApplet implements ActionListener {
+    Board board;
+    MyMouseHandler mh;
+    boolean player_one;
+    boolean player_two;
 
     public Main() {
-        //empty constructor
+        this.board = new Board();
+        this.mh = new MyMouseHandler();
     }
+
     public void init() {
-        Board board = new Board();
-        
-        JFrame frame = new JFrame();
-        frame.add(board);
-        int frame_height, frame_width;
-        frame_height = frame.getHeight();
-        frame_width = frame.getWidth();
-        frame.setSize((board.tile_height * board.board_row) + 3, (board.tile_width * board.board_col) + 33);
-        MyMouseHandler mh = new MyMouseHandler();
-        frame.addMouseListener(mh);
-        frame.setVisible(true);
+        getContentPane().add(this.board);
+        getContentPane().addMouseListener(this.mh);
+    }
 
-
-        Game game = new Game(board, mh, true, false); //true for human player, false for CPU
+    public void start() {
+        Game game = new Game(this.board, this.mh, true, false); //true for human player, false for CPU
         game.PlayGame();
     }
+
     public void actionPerformed(ActionEvent e) {
         //Necessary for abstract class
     }
- 
+
     public static void main(String[] args) {
-        //Board board = new Board(); //uncomment for application version
         Main m = new Main();
         m.init(); //uncomment for applet version
 
+        JFrame frame = new JFrame();
+        JMenuBar menu_bar = new JMenuBar();
+        JMenu player_menu = new JMenu("Player Menu");
+        menu_bar.add(player_menu);
+        frame.setSize((m.board.tile_height * m.board.board_row) + 3, (m.board.tile_width * m.board.board_col) + 33);
+        frame.add(menu_bar);
+        frame.setVisible(true);
+        m.start();
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.setLocationRelativeTo(null);
         //frame.add(board); //Uncomment for application version
-        
     }
 }

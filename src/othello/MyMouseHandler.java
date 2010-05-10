@@ -32,7 +32,7 @@ import java.awt.event.*;
 
             public void mouseClicked(MouseEvent e) {
                 // e.getY() - 25 is a hard-coded fix... will likely cause problems later
-                lastX = (e.getY() - 25) / 50 ; //x is actually col
+                lastX = e.getY() / 50 ; //x is actually col
                 lastY = e.getX() / 50;  //y is actually row
             }
     }
