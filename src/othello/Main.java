@@ -42,18 +42,15 @@ public class Main extends JApplet implements ActionListener {
 
     public static void main(String[] args) {
         Main m = new Main();
-        m.init(); //uncomment for applet version
-
-        JFrame frame = new JFrame();
-        JMenuBar menu_bar = new JMenuBar();
-        JMenu player_menu = new JMenu("Player Menu");
-        menu_bar.add(player_menu);
-        frame.setSize((m.board.tile_height * m.board.board_row) + 3, (m.board.tile_width * m.board.board_col) + 33);
-        frame.add(menu_bar);
-        frame.setVisible(true);
+        m.init(); 
         m.start();
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setLocationRelativeTo(null);
-        //frame.add(board); //Uncomment for application version
+
+        //Uncomment for application version
+        /*JFrame frame = new JFrame();
+        frame.setSize((m.board.tile_height * m.board.board_row) + 3, (m.board.tile_width * m.board.board_col) + 33);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.add(m.board);
+        frame.setVisible(true);*/
     }
 }
