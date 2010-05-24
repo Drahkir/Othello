@@ -78,7 +78,7 @@ public class Game {
                  }
             }
         }
-
+        board.declareWinner();
     }
 
     public Player getPlayerOne() {

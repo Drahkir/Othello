@@ -11,6 +11,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.net.URL;
+import java.awt.Font;
 
 
 /**
@@ -38,6 +39,8 @@ public class Board extends JPanel {
     public static final int board_col = 8;
     public int image_width, image_height;
     private Chip[][] board_array = new Chip[board_row][board_col];
+    boolean winner = false;
+    String winner_string;
 
     public Board() {
         for(int i = 0; i < board_row; i++) {
@@ -59,12 +62,16 @@ public class Board extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
+        Font f = new Font("font", Font.PLAIN, 40);
+        g2d.setFont(f);
+        g2d.setColor(java.awt.Color.yellow);
         int k = this.getHeight() * tile_height;
         int l = this.getWidth() * tile_width;
 
         //REALLY needs to be rewritten!!!  May want to define for loops to halt on c and r instead of l and k
         for(int i = 0, r = 0; i < k; i += tile_height, r++) {
             for(int j = 0, c = 0; j < l; j += tile_width, c++) {
+
                 if(board_array[r][c].getChipColor() == ChipColor.BLACK)
                     g2d.drawImage(black_chip, j, i, this);
                 else if(board_array[r][c].getChipColor() == ChipColor.WHITE)
@@ -77,6 +84,9 @@ public class Board extends JPanel {
             }
             if(r == 7)
                 r = 0;
+        }
+        if(this.winner) {
+            g2d.drawString(this.winner_string, 50, 50);
         }
     }
 
@@ -437,7 +447,7 @@ public class Board extends JPanel {
         return result;
     }
 
-    public String declareWinner() {
+    public void declareWinner() {
         int white, black;
         white = black = 0;
         String string;
@@ -453,10 +463,11 @@ public class Board extends JPanel {
             }
         }
         if(white > black)
-           string = "You win";
+           this.winner_string = "You win";
         else
-            string = "You lose";
-        return string;
+            this.winner_string = "You lose";
+        this.winner = true;
+        this.repaint();
     }
 
         //Command Line printBoard()

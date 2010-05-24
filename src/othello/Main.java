@@ -42,7 +42,7 @@ public class Main extends JApplet implements ActionListener {
 
     public static void main(String[] args) {
         Main m = new Main();
-        m.init(); 
+        m.init();
         m.start();
 
         //Uncomment for application version
@@ -51,6 +51,8 @@ public class Main extends JApplet implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.add(m.board);
-        frame.setVisible(true);*/
+        frame.setVisible(true);
+        Game game = new Game(m.board, m.mh, true, false); //true for human player, false for CPU
+        game.PlayGame();*/
     }
 }
